@@ -6,10 +6,10 @@ import sys
 
 REGION = 'us-east-1'
 
-rds_host  = "example.c7hugt6dv8dv.ap-south-1.rds.amazonaws.com"
-name = "example"
-password = "examplepassword"
-db_name = "example"
+rds_host  = "database-3.cadnqqtfeepu.us-east-1.rds.amazonaws.com"
+name = "admin"
+password = "India1234qwer"
+db_name = "vk"
 
 def save_events(event):
     """
@@ -18,8 +18,8 @@ def save_events(event):
     result = []
     conn = pymysql.connect(rds_host, user=name, passwd=password, db=db_name, connect_timeout=5)
     with conn.cursor() as cur:
-        cur.execute("""insert into test (id, name) values( %s, '%s')""" % (event['id'], event['name']))
-        cur.execute("""select * from test""")
+        cur.execute("""insert into Orders (OId, Name, OrderNo, TrackNo) values( %s, '%s', '%s', '%s')""" % (event['OId'], event['Name'], event['OrderNo'], event['TrackNo']))
+        cur.execute("""select * from Orders""")
         conn.commit()
         cur.close()
         for row in cur:
